@@ -1,0 +1,63 @@
+<svg width="1120" height="500" viewBox="0 0 1120 500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">HELMOR Agent signal graph</title>
+  <desc id="desc">A visual signal graph showing the project signals HELMOR watches and the outcomes it produces.</desc>
+  <rect width="1120" height="500" rx="28" fill="#070A11"/>
+  <rect x="34" y="34" width="1052" height="432" rx="24" fill="#0C121D" stroke="#213047"/>
+  <text x="64" y="84" fill="#EAF1FF" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800">Signals HELMOR watches</text>
+  <text x="64" y="116" fill="#9FB0CA" font-family="Inter, Arial, sans-serif" font-size="16">A local graph of project context, tool use, checks, and release readiness.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#7DD3FC"/>
+    </marker>
+  </defs>
+
+  <g stroke="#7DD3FC" stroke-width="2.4" stroke-linecap="round" marker-end="url(#arrow)" opacity="0.9">
+    <path d="M252 188C344 174 386 176 466 210"/>
+    <path d="M252 248C352 248 388 248 466 248"/>
+    <path d="M252 308C344 322 386 320 466 286"/>
+    <path d="M654 248C742 248 784 248 868 248"/>
+    <path d="M560 168C560 122 676 122 748 160"/>
+    <path d="M560 328C560 378 684 378 756 336"/>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <g>
+      <rect x="76" y="158" width="176" height="60" rx="16" fill="#111A2A" stroke="#33445F"/>
+      <text x="106" y="194" fill="#EAF1FF" font-size="16" font-weight="800">repo truth</text>
+    </g>
+    <g>
+      <rect x="76" y="218" width="176" height="60" rx="16" fill="#111A2A" stroke="#33445F"/>
+      <text x="104" y="254" fill="#EAF1FF" font-size="16" font-weight="800">tool commands</text>
+    </g>
+    <g>
+      <rect x="76" y="278" width="176" height="60" rx="16" fill="#111A2A" stroke="#33445F"/>
+      <text x="104" y="314" fill="#EAF1FF" font-size="16" font-weight="800">active task</text>
+    </g>
+
+    <g>
+      <circle cx="560" cy="248" r="92" fill="#0F241B" stroke="#2DBE7F" stroke-width="2"/>
+      <text x="500" y="240" fill="#EAF1FF" font-size="22" font-weight="900">HELMOR</text>
+      <text x="500" y="268" fill="#BFF5D8" font-size="15" font-weight="700">session watcher</text>
+    </g>
+
+    <g>
+      <rect x="748" y="130" width="234" height="60" rx="16" fill="#181B2E" stroke="#57507E"/>
+      <text x="782" y="166" fill="#D8CCFF" font-size="16" font-weight="800">skill routing</text>
+    </g>
+    <g>
+      <rect x="868" y="218" width="176" height="60" rx="16" fill="#181B2E" stroke="#57507E"/>
+      <text x="902" y="254" fill="#D8CCFF" font-size="16" font-weight="800">safe actions</text>
+    </g>
+    <g>
+      <rect x="756" y="306" width="226" height="60" rx="16" fill="#181B2E" stroke="#57507E"/>
+      <text x="792" y="342" fill="#D8CCFF" font-size="16" font-weight="800">handoff continuity</text>
+    </g>
+  </g>
+
+  <g font-family="JetBrains Mono, Menlo, monospace" font-size="13">
+    <text x="82" y="404" fill="#9FB0CA">inputs</text>
+    <text x="506" y="404" fill="#19C37D">local analysis</text>
+    <text x="844" y="404" fill="#D8CCFF">outcomes</text>
+  </g>
+</svg>

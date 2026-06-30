@@ -1,6 +1,6 @@
 # HELMOR Skills
 
-HELMOR Agent ships with 14 built-in skills. They help AI coding agents choose the right behavior before spending tokens, editing code, running checks, or closing out a task.
+HELMOR Agent ships with 140+ built-in skills. They help AI coding agents choose the right behavior before spending tokens, editing code, running checks, or closing out a task.
 
 ## Lifecycle Map
 
