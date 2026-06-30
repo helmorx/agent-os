@@ -1,4 +1,4 @@
-bin/
+/bin/
 dist/
 coverage/
 .DS_Store
