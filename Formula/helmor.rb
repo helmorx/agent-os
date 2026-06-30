@@ -7,10 +7,10 @@ class Helmor < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/helmorx/devsuite/releases/download/v0.1.0/helmor_darwin_arm64.tar.gz"
-      sha256 "REPLACE_WITH_DARWIN_ARM64_SHA256"
+      sha256 "85ad2f1e948379c344da0f5963aee78cf57ab3b07ed915362436ee723462b749"
     else
       url "https://github.com/helmorx/devsuite/releases/download/v0.1.0/helmor_darwin_amd64.tar.gz"
-      sha256 "REPLACE_WITH_DARWIN_AMD64_SHA256"
+      sha256 "69170944ac74d0e4000334024793c004af82546226d9b5db73be47c4ca2042a7"
     end
   end
 
