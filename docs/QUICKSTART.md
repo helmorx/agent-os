@@ -7,13 +7,13 @@ HELMOR Agent OS is designed for existing repositories and new product builds. It
 macOS:
 
 ```bash
-brew install --formula https://raw.githubusercontent.com/helmorx/agent-os/main/Formula/helmor.rb
+brew install helmorx/tap/helmoragent
 ```
 
 Windows:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 | iex"
+irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 | iex
 ```
 
 Linux:
