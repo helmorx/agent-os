@@ -20,8 +20,8 @@ jobs:
       - run: npm test
         working-directory: npm/helmor
       - run: npm test
-        working-directory: npm/agent-os
+        working-directory: npm/agent
       - run: npm run pack:dry
         working-directory: npm/helmor
       - run: npm run pack:dry
-        working-directory: npm/agent-os
+        working-directory: npm/agent

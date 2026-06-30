@@ -1,6 +1,6 @@
 # HELMOR Commands
 
-This is the full CLI reference for HELMOR Agent OS. The README keeps only the four primary commands so new users see the product quickly.
+This is the full CLI reference for HELMOR Agent. The README keeps only the four primary commands so new users see the product quickly.
 
 ## Primary Commands
 

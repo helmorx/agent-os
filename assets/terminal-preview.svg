@@ -7,8 +7,8 @@
   <circle cx="80" cy="52" r="7" fill="#FFD166"/>
   <circle cx="104" cy="52" r="7" fill="#06D6A0"/>
   <text x="48" y="104" fill="#19C37D" font-family="JetBrains Mono, Menlo, monospace" font-size="18">$ helmor dashboard</text>
-  <text x="48" y="150" fill="#EAF1FF" font-family="JetBrains Mono, Menlo, monospace" font-size="17">HELMOR Agent OS</text>
-  <text x="48" y="190" fill="#BFD0E8" font-family="JetBrains Mono, Menlo, monospace" font-size="16">Project: agent-os        Mode: observe</text>
+  <text x="48" y="150" fill="#EAF1FF" font-family="JetBrains Mono, Menlo, monospace" font-size="17">HELMOR Agent</text>
+  <text x="48" y="190" fill="#BFD0E8" font-family="JetBrains Mono, Menlo, monospace" font-size="16">Project: helmor-agent    Mode: observe</text>
   <text x="48" y="222" fill="#BFD0E8" font-family="JetBrains Mono, Menlo, monospace" font-size="16">Agents: Codex, Claude, Cursor, Windsurf</text>
   <text x="48" y="254" fill="#BFD0E8" font-family="JetBrains Mono, Menlo, monospace" font-size="16">Token tools: rtk first, sqz fallback, graph first</text>
   <text x="48" y="304" fill="#FFD166" font-family="JetBrains Mono, Menlo, monospace" font-size="16">[warn] truth-files.missing  Add PRODUCT.md or DESIGN.md</text>

@@ -1,6 +1,6 @@
 <svg width="1280" height="560" viewBox="0 0 1280 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">HELMOR Agent OS</title>
-  <desc id="desc">A dark product banner showing HELMOR Agent OS as a local AI agent operating system.</desc>
+  <title id="title">HELMOR Agent</title>
+  <desc id="desc">A dark product banner showing HELMOR Agent as a local AI development agent.</desc>
   <rect width="1280" height="560" rx="32" fill="#06080D"/>
   <rect x="42" y="42" width="1196" height="476" rx="28" fill="#0B111B" stroke="#1F2A38"/>
   <path d="M94 126C94 106.118 110.118 90 130 90H1150C1169.88 90 1186 106.118 1186 126V434C1186 453.882 1169.88 470 1150 470H130C110.118 470 94 453.882 94 434V126Z" fill="#0E1724"/>
@@ -8,8 +8,8 @@
   <circle cx="130" cy="116" r="8" fill="#FF6B6B"/>
   <circle cx="156" cy="116" r="8" fill="#FFD166"/>
   <circle cx="182" cy="116" r="8" fill="#06D6A0"/>
-  <text x="130" y="206" fill="#EAF1FF" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">HELMOR Agent OS</text>
-  <text x="132" y="252" fill="#9FB0CA" font-family="Inter, Arial, sans-serif" font-size="22">The local AI agent operating system for cleaner context, safer agents, and fewer wasted tokens.</text>
+  <text x="130" y="206" fill="#EAF1FF" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">HELMOR Agent</text>
+  <text x="132" y="252" fill="#9FB0CA" font-family="Inter, Arial, sans-serif" font-size="22">The local AI agent for cleaner context, safer development, and fewer wasted tokens.</text>
   <g transform="translate(132 304)">
     <rect width="220" height="46" rx="12" fill="#19C37D"/>
     <text x="24" y="30" fill="#04110B" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">brew install helmor</text>

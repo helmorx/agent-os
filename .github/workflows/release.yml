@@ -29,7 +29,7 @@ jobs:
           tag="${GITHUB_REF_NAME#v}"
           cli="$(go run ./cmd/helmor version)"
           npm_pkg="$(node -p "require('./npm/helmor/package.json').version")"
-          scoped_pkg="$(node -p "require('./npm/agent-os/package.json').version")"
+          scoped_pkg="$(node -p "require('./npm/agent/package.json').version")"
           test "$tag" = "$cli"
           test "$tag" = "$npm_pkg"
           test "$tag" = "$scoped_pkg"
@@ -60,14 +60,14 @@ jobs:
       - run: npm test
         working-directory: npm/helmor
       - run: npm test
-        working-directory: npm/agent-os
+        working-directory: npm/agent
       - run: npm run pack:dry
         working-directory: npm/helmor
       - run: npm run pack:dry
-        working-directory: npm/agent-os
+        working-directory: npm/agent
       - name: Publish helmor to npm
         run: npm publish --provenance --access public --tag latest
         working-directory: npm/helmor
       - name: Publish scoped npm alias
         run: npm publish --provenance --access public --tag latest
-        working-directory: npm/agent-os
+        working-directory: npm/agent

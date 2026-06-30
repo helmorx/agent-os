@@ -13,6 +13,6 @@ class Helmoragent < Formula
 
   test do
     assert_match "0.1.1", shell_output("#{bin}/helmor version")
-    assert_match "HELMOR Agent OS", shell_output("#{bin}/helmor help")
+    assert_match "Usage: helmor", shell_output("#{bin}/helmor help")
   end
 end

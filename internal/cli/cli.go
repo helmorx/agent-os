@@ -69,7 +69,7 @@ func Run(args []string, stdout io.Writer, stderr io.Writer) int {
 }
 
 func usage(writer io.Writer) {
-	fmt.Fprintln(writer, "HELMOR Agent OS")
+	fmt.Fprintln(writer, "HELMOR Agent")
 	fmt.Fprintln(writer)
 	fmt.Fprintln(writer, "Usage: helmor <command> [options]")
 	fmt.Fprintln(writer)

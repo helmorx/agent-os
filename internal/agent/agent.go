@@ -73,10 +73,10 @@ func writeRules(root string, name string, relPath string, cfg config.Project) er
 	path := filepath.Join(root, relPath)
 	content := strings.Join([]string{
 		"---",
-		"description: HELMOR Agent OS project rules",
+		"description: HELMOR Agent project rules",
 		"---",
 		"",
-		"# HELMOR Agent OS",
+		"# HELMOR Agent",
 		"",
 		"Project: " + cfg.ProjectName,
 		"Mode: " + cfg.Mode,

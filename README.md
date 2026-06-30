@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/helmor-hero.svg" alt="HELMOR Agent OS banner" width="100%">
+  <img src="assets/helmor-hero.svg" alt="HELMOR Agent banner" width="100%">
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@
   <a href="#install"><img src="https://img.shields.io/badge/install-npm%20%7C%20brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
 </p>
 
-<h1 align="center">HELMOR Agent OS</h1>
+<h1 align="center">HELMOR Agent</h1>
 
 <p align="center">
   The local agent watcher that helps developers build products from idea to launch.
@@ -39,7 +39,7 @@
 
 ## Why HELMOR
 
-AI agents are fast, but they waste tokens rediscovering the same repo, forget decisions, invent missing APIs, run the wrong commands, and drift away from product truth. HELMOR sits inside each project as a local operating layer for the whole development lifecycle.
+AI agents are fast, but they waste tokens rediscovering the same repo, forget decisions, invent missing APIs, run the wrong commands, and drift away from product truth. HELMOR sits inside each project as a local agent layer for the whole development lifecycle.
 
 <table>
   <tr>

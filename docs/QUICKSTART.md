@@ -1,6 +1,6 @@
 # Quickstart
 
-HELMOR Agent OS is designed for existing repositories and new product builds. It starts in `observe` mode so teams can adopt it without surprise blocking.
+HELMOR Agent is designed for existing repositories and new product builds. It starts in `observe` mode so teams can adopt it without surprise blocking.
 
 ## 1. Install HELMOR
 

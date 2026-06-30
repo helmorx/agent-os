@@ -1,13 +1,13 @@
 {
-  "name": "@helmoragent/agent-os",
+  "name": "@helmoragent/agent",
   "version": "0.1.3",
-  "description": "Scoped npm alias for the HELMOR Agent OS CLI",
+  "description": "Scoped npm alias for the HELMOR Agent CLI",
   "license": "Apache-2.0",
   "homepage": "https://github.com/helmorx/agent-os",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/helmorx/agent-os.git",
-    "directory": "npm/agent-os"
+    "directory": "npm/agent"
   },
   "bugs": {
     "url": "https://github.com/helmorx/agent-os/issues"

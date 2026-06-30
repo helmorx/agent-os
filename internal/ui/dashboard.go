@@ -11,7 +11,7 @@ import (
 )
 
 func Dashboard(writer io.Writer, cfg config.Project, findings []detector.Finding) {
-	fmt.Fprintln(writer, "HELMOR Agent OS")
+	fmt.Fprintln(writer, "HELMOR Agent")
 	fmt.Fprintln(writer, strings.Repeat("=", 16))
 	fmt.Fprintf(writer, "Project: %s\n", cfg.ProjectName)
 	fmt.Fprintf(writer, "Mode: %s\n", cfg.Mode)

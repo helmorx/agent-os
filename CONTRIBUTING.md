@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve HELMOR Agent OS.
+Thanks for helping improve HELMOR Agent.
 
 ## Development Setup
 
@@ -17,9 +17,9 @@ Run checks before opening a pull request:
 go test ./...
 go vet ./...
 npm test --prefix npm/helmor
-npm test --prefix npm/agent-os
+npm test --prefix npm/agent
 npm run pack:dry --prefix npm/helmor
-npm run pack:dry --prefix npm/agent-os
+npm run pack:dry --prefix npm/agent
 ```
 
 ## Pull Request Guidelines

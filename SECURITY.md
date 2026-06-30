@@ -1,6 +1,6 @@
 # Security Policy
 
-HELMOR Agent OS is built to reduce unsafe AI-assisted development behavior. Please report security issues responsibly.
+HELMOR Agent is built to reduce unsafe AI-assisted development behavior. Please report security issues responsibly.
 
 ## Reporting A Vulnerability
 

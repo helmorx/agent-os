@@ -1,4 +1,4 @@
-# HELMOR Agent OS
+# HELMOR Agent
 
 Npm installer for the native `helmor` CLI.
 
