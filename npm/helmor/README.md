@@ -3,17 +3,17 @@
 Npm installer for the native `helmor` CLI.
 
 ```bash
-npm i -g helmor
+npm i -g @helmoragent/helmor
 helmor install
 ```
 
 One-off usage without a global install:
 
 ```bash
-npx helmor@latest install
-pnpm dlx helmor install
-yarn dlx helmor install
-bunx helmor install
+npx @helmoragent/helmor@latest install
+pnpm dlx @helmoragent/helmor install
+yarn dlx @helmoragent/helmor install
+bunx @helmoragent/helmor install
 ```
 
 This package downloads the matching HELMOR release binary from GitHub, verifies it against the published SHA-256 checksum file, and exposes the `helmor` command.

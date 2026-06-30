@@ -7,16 +7,16 @@ HELMOR Agent OS is designed for existing repositories and new product builds. It
 Node.js:
 
 ```bash
-npm i -g helmor
+npm i -g @helmoragent/helmor
 ```
 
 One-off:
 
 ```bash
-npx helmor@latest install
-pnpm dlx helmor install
-yarn dlx helmor install
-bunx helmor install
+npx @helmoragent/helmor@latest install
+pnpm dlx @helmoragent/helmor install
+yarn dlx @helmoragent/helmor install
+bunx @helmoragent/helmor install
 ```
 
 macOS Homebrew:

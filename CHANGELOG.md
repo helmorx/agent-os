@@ -4,6 +4,12 @@ All notable changes to HELMOR Agent OS are documented here.
 
 ## Unreleased
 
+## 0.1.3 - 2026-06-30
+
+- Switched npm distribution to `@helmoragent/helmor` because npm blocks the unscoped `helmor` package name as too similar to an existing package.
+- Kept the installed CLI command as `helmor`.
+- Added scoped npm alias package metadata for `@helmoragent/agent-os`.
+
 ## 0.1.2 - 2026-06-30
 
 - Added npm distribution under the short package name `helmor`.

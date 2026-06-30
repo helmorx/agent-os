@@ -1,6 +1,6 @@
 {
-  "name": "@helmorx/agent-os",
-  "version": "0.1.2",
+  "name": "@helmoragent/agent-os",
+  "version": "0.1.3",
   "description": "Scoped npm alias for the HELMOR Agent OS CLI",
   "license": "Apache-2.0",
   "homepage": "https://github.com/helmorx/agent-os",
@@ -29,7 +29,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "helmor": "0.1.2"
+    "@helmoragent/helmor": "0.1.3"
   },
   "scripts": {
     "test": "node -c bin/helmor.js",

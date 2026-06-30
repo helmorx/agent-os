@@ -1,14 +1,14 @@
-# @helmorx/agent-os
+# @helmoragent/agent-os
 
 Scoped npm alias for the HELMOR Agent OS CLI.
 
 ```bash
-npx @helmorx/agent-os@latest install
+npx @helmoragent/agent-os@latest install
 ```
 
 The short package name is preferred:
 
 ```bash
-npm i -g helmor
+npm i -g @helmoragent/helmor
 helmor install
 ```
