@@ -3,54 +3,67 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/helmorx/devsuite/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/devsuite/ci.yml?branch=main&label=ci&style=for-the-badge" alt="CI"></a>
-  <a href="https://github.com/helmorx/devsuite/blob/main/LICENSE"><img src="https://img.shields.io/github/license/helmorx/devsuite?style=for-the-badge" alt="Apache-2.0 license"></a>
-  <a href="https://github.com/helmorx/devsuite/releases"><img src="https://img.shields.io/github/v/release/helmorx/devsuite?style=for-the-badge&include_prereleases" alt="Latest release"></a>
-  <a href="https://github.com/helmorx/devsuite/stargazers"><img src="https://img.shields.io/github/stars/helmorx/devsuite?style=for-the-badge" alt="GitHub stars"></a>
+  <a href="https://github.com/helmorx/devsuite/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/devsuite/ci.yml?branch=main&label=ci&style=flat-square" alt="CI"></a>
+  <a href="https://github.com/helmorx/devsuite/releases"><img src="https://img.shields.io/github/v/release/helmorx/devsuite?style=flat-square&include_prereleases" alt="Latest release"></a>
+  <a href="https://github.com/helmorx/devsuite/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-0E1724?style=flat-square" alt="Apache-2.0 license"></a>
+  <a href="#install"><img src="https://img.shields.io/badge/install-brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
+</p>
+
+<h1 align="center">The local development engine for AI coding agents</h1>
+
+<p align="center">
+  HELMOR keeps agents grounded in your repo, compresses noisy context, and blocks risky drift before it reaches production.
 </p>
 
 <p align="center">
-  <b>A local-first development engine for AI-assisted coding.</b><br>
-  Reduce wasted tokens, project drift, hallucinated changes, and unsafe agent actions.
+  <a href="#install"><b>Install</b></a>
+  ·
+  <a href="#why-helmor"><b>Why HELMOR</b></a>
+  ·
+  <a href="#agent-support"><b>Agent support</b></a>
+  ·
+  <a href="#commands"><b>Commands</b></a>
 </p>
 
 ---
 
 ## Why HELMOR
 
-AI coding agents are powerful, but they waste context, forget project rules, invent files/APIs, run noisy commands, and drift away from your product intent. HELMOR gives every project a local operating layer:
+AI agents are fast, but they often waste tokens rediscovering the project, invent missing APIs, run the wrong commands, or drift away from product truth. HELMOR gives each repository a local operating layer for safer AI-assisted development.
 
-| Problem | HELMOR response |
-|---|---|
-| Agents re-read the same repo context | Compact context cards, session state, handoffs |
-| Shell/test output burns tokens | `rtk` first, `sqz` fallback, concise checks |
-| Agents use the wrong package manager | package-runner detection and guard rails |
-| Risky actions happen too early | observe, guard, and strict project modes |
-| UI starts looking generic | deterministic design detectors inspired by Impeccable-style checks |
-| New sessions lose decisions | `.helmor/project.json`, task state, handoff memory |
+<table>
+  <tr>
+    <td width="33%">
+      <h3>Reduce wasted tokens</h3>
+      <p>Prefer compact shell/test output, context cards, handoffs, and graph-first discovery instead of repeated repo scans.</p>
+    </td>
+    <td width="33%">
+      <h3>Stop project drift</h3>
+      <p>Keep agents aligned to truth files, package runners, checks, policies, and task state in <code>.helmor/project.json</code>.</p>
+    </td>
+    <td width="33%">
+      <h3>Guard risky actions</h3>
+      <p>Detect secrets, destructive git, package-runner bypass, unsafe deploys, and launch/security closeout gaps.</p>
+    </td>
+  </tr>
+</table>
 
 ## Install
-
-macOS:
 
 ```bash
 brew tap helmorx/devsuite https://github.com/helmorx/devsuite
 brew install helmor
 ```
 
-Windows:
-
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/helmorx/devsuite/main/install/install.ps1 | iex"
 ```
-
-Linux:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/helmorx/devsuite/main/install/install.sh | sh
 ```
 
-## Quick Start
+## First Run
 
 ```bash
 helmor install
@@ -59,7 +72,7 @@ helmor doctor
 helmor dashboard
 ```
 
-Existing projects start in `observe` mode. HELMOR warns, routes, and summarizes without blocking most actions. Move to enforcement when you are ready:
+Existing projects start in `observe` mode, so HELMOR warns and routes without surprise-blocking your workflow.
 
 ```bash
 helmor init --mode guard --force
@@ -70,44 +83,50 @@ helmor init --mode strict --force
   <img src="assets/terminal-preview.svg" alt="HELMOR terminal dashboard preview" width="88%">
 </p>
 
-## What You Get
+## What It Adds To A Project
 
-**Token Reduction Engine**
+```text
+.helmor/
+  project.json          repo profile, checks, policies, tools, adapters
+  context-card.md       compact context for new sessions
+  handoff.md            closeout summary for the next agent
+  state.json            local runtime state, ignored by git
+```
 
-- Prefer `rtk` for compressed shell, git, and test output.
-- Use `sqz` as fallback for compression and handoff support.
-- Detect `nub`, npm, pnpm, yarn, bun, Go, Rust, and Python runners.
-- Push agents toward graph/code discovery before broad repo scans.
+HELMOR is local-first. It does not require an account, upload your source, or send telemetry.
 
-**Anti-Drift Engine**
+## Agent Support
 
-- Detect truth files like `PRODUCT.md`, `DESIGN.md`, `ARCHITECTURE.md`, `AGENTS.md`, `CLAUDE.md`, `README.md`, `PRD.md`, and `TRD.md`.
-- Preserve `.helmor/context-card.md` and `.helmor/handoff.md`.
-- Track task stage, touched files, pending checks, and risky closeout state.
-
-**Agent Adapters**
-
-- Codex and Claude Code: hook-compatible command entrypoints.
-- Cursor and Windsurf: generated project rules.
-- Other agents: use the same `helmor hook --event <EventName>` interface.
-
-**Detector Packs**
-
-- secret-shaped filenames
-- destructive git commands
-- package-runner bypass
-- unsafe production/mainnet/provider commands
-- stale or missing truth files
-- token-tool gaps
-- UI/design drift patterns
+| Agent | V1 support | Integration style |
+|---|---:|---|
+| Codex | yes | hook-compatible command entrypoints |
+| Claude Code | yes | hook-compatible command entrypoints |
+| Cursor | yes | generated project rules |
+| Windsurf | yes | generated project rules |
+| Other agents | compatible | use `helmor hook --event <EventName>` |
 
 ## Modes
 
-| Mode | Best for | Behavior |
+| Mode | Use it when | Behavior |
 |---|---|---|
-| `observe` | existing projects, onboarding | warns and routes, does not surprise-block |
-| `guard` | active development | blocks secrets, destructive git, runner bypass, unsafe deploy actions |
-| `strict` | launch/security-sensitive work | enforces closeout, checks, handoffs, and security review |
+| `observe` | adopting HELMOR in an existing repo | warn, route, summarize |
+| `guard` | active development with agents | block secrets, destructive git, wrong runner, unsafe deploys |
+| `strict` | release, launch, security-sensitive work | enforce checks, handoffs, closeout, security review |
+
+## Detector Packs
+
+<table>
+  <tr>
+    <td><b>Secrets</b><br>secret-shaped filenames and unsafe paths</td>
+    <td><b>Shell/Git</b><br>destructive git and unsafe deploy commands</td>
+    <td><b>Runner Drift</b><br>wrong package manager and noisy retries</td>
+  </tr>
+  <tr>
+    <td><b>Truth Files</b><br>missing project authority docs</td>
+    <td><b>Token Waste</b><br>missing or unused compression/discovery tools</td>
+    <td><b>Design Drift</b><br>generic AI UI patterns inspired by modern design audits</td>
+  </tr>
+</table>
 
 ## Commands
 
@@ -130,7 +149,7 @@ helmor design audit
 helmor design polish
 ```
 
-Hook-compatible commands:
+Hook-compatible entrypoints:
 
 ```bash
 helmor hook --event SessionStart
@@ -142,29 +161,13 @@ helmor hook --event PreCompact
 helmor hook --event SessionEnd
 ```
 
-## Project Profile
-
-HELMOR stores project rules locally:
-
-```text
-.helmor/project.json
-```
-
-The profile tracks stack, runner, truth files, checks, policies, enabled adapters, and built-in skill modules. It is plain JSON and can be reviewed or edited by the developer.
-
 ## Built For
 
-- solo developers shipping with AI agents
-- teams that want safer AI coding workflows
+- developers shipping real projects with AI agents
+- teams that want repeatable AI coding workflows
 - vibe coders who need less hallucination and more structure
-- high-risk apps that need launch/security discipline
 - frontend teams that want deterministic UI polish checks
-
-## Release Notes
-
-V1 is local-first and does not upload source code, require an account, or send telemetry.
-
-Homebrew SHA placeholders in `Formula/helmor.rb` are replaced after the first GitHub Release is published.
+- high-risk apps that need launch and security discipline
 
 ## License
 
