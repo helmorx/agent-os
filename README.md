@@ -12,7 +12,7 @@
 <h1 align="center">The local operating layer for AI coding agents</h1>
 
 <p align="center">
-  HELMOR keeps agents grounded in your repo, compresses noisy context, and blocks risky drift before it reaches production.
+  HELMOR helps Codex, Claude Code, Cursor, and Windsurf spend fewer tokens, remember repo context, avoid drift, and stop unsafe actions before they ship.
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@
 
 ## Why HELMOR
 
-AI agents are fast, but they often waste tokens rediscovering the project, invent missing APIs, run the wrong commands, or drift away from product truth. HELMOR gives each repository a local operating layer for safer AI-assisted development.
+AI agents are fast, but they often waste tokens rediscovering the project, invent missing APIs, forget earlier decisions, run the wrong commands, or drift away from product truth. HELMOR gives each repository a local operating layer for safer AI-assisted development.
 
 <table>
   <tr>
