@@ -33,7 +33,7 @@ func TestInitStatusAndDashboard(t *testing.T) {
 	if code := Run([]string{"dashboard"}, &stdout, &stderr); code != 0 {
 		t.Fatalf("dashboard code=%d stderr=%s", code, stderr.String())
 	}
-	if !strings.Contains(stdout.String(), "HELMOR DevSuite") {
+	if !strings.Contains(stdout.String(), "HELMOR Agent OS") {
 		t.Fatalf("dashboard output = %s", stdout.String())
 	}
 }

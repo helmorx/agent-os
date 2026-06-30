@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/helmorx/devsuite/internal/cli"
+	"github.com/helmorx/agent-os/internal/cli"
 )
 
 func main() {

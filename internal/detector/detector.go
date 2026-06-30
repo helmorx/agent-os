@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/config"
+	"github.com/helmorx/agent-os/internal/config"
 )
 
 type Severity string

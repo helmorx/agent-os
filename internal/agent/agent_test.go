@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/project"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/project"
 )
 
 func TestInstallAdaptersWritesCoreFourOutputs(t *testing.T) {

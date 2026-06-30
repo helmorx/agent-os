@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $Repo = $env:HELMOR_REPO
-if ([string]::IsNullOrWhiteSpace($Repo)) { $Repo = "helmorx/devsuite" }
+if ([string]::IsNullOrWhiteSpace($Repo)) { $Repo = "helmorx/agent-os" }
 
 $Version = $env:HELMOR_VERSION
 if ([string]::IsNullOrWhiteSpace($Version)) { $Version = "latest" }

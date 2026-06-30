@@ -11,12 +11,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/agent"
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/detector"
-	"github.com/helmorx/devsuite/internal/hook"
-	"github.com/helmorx/devsuite/internal/project"
-	"github.com/helmorx/devsuite/internal/ui"
+	"github.com/helmorx/agent-os/internal/agent"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/detector"
+	"github.com/helmorx/agent-os/internal/hook"
+	"github.com/helmorx/agent-os/internal/project"
+	"github.com/helmorx/agent-os/internal/ui"
 )
 
 const version = "0.1.0"
@@ -69,7 +69,7 @@ func Run(args []string, stdout io.Writer, stderr io.Writer) int {
 }
 
 func usage(writer io.Writer) {
-	fmt.Fprintln(writer, "HELMOR DevSuite")
+	fmt.Fprintln(writer, "HELMOR Agent OS")
 	fmt.Fprintln(writer)
 	fmt.Fprintln(writer, "Usage: helmor <command> [options]")
 	fmt.Fprintln(writer)

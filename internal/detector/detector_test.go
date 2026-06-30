@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/helmorx/devsuite/internal/config"
+	"github.com/helmorx/agent-os/internal/config"
 )
 
 func TestSecretPathDetector(t *testing.T) {

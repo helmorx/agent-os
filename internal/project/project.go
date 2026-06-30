@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/config"
+	"github.com/helmorx/agent-os/internal/config"
 )
 
 const (

@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="assets/helmor-hero.svg" alt="HELMOR DevSuite banner" width="100%">
+  <img src="assets/helmor-hero.svg" alt="HELMOR Agent OS banner" width="100%">
 </p>
 
 <p align="center">
-  <a href="https://github.com/helmorx/devsuite/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/devsuite/ci.yml?branch=main&label=ci&style=flat-square" alt="CI"></a>
-  <a href="https://github.com/helmorx/devsuite/releases"><img src="https://img.shields.io/github/v/release/helmorx/devsuite?style=flat-square&include_prereleases" alt="Latest release"></a>
-  <a href="https://github.com/helmorx/devsuite/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-0E1724?style=flat-square" alt="Apache-2.0 license"></a>
+  <a href="https://github.com/helmorx/agent-os/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/agent-os/ci.yml?branch=main&label=ci&style=flat-square" alt="CI"></a>
+  <a href="https://github.com/helmorx/agent-os/releases"><img src="https://img.shields.io/github/v/release/helmorx/agent-os?style=flat-square&include_prereleases" alt="Latest release"></a>
+  <a href="https://github.com/helmorx/agent-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-0E1724?style=flat-square" alt="Apache-2.0 license"></a>
   <a href="#install"><img src="https://img.shields.io/badge/install-brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
 </p>
 
-<h1 align="center">The local development engine for AI coding agents</h1>
+<h1 align="center">The local operating layer for AI coding agents</h1>
 
 <p align="center">
   HELMOR keeps agents grounded in your repo, compresses noisy context, and blocks risky drift before it reaches production.
@@ -17,6 +17,10 @@
 
 <p align="center">
   <a href="#install"><b>Install</b></a>
+  ·
+  <a href="https://helmor.io"><b>Website</b></a>
+  ·
+  <a href="https://x.com/helmorlabs"><b>X</b></a>
   ·
   <a href="#why-helmor"><b>Why HELMOR</b></a>
   ·
@@ -51,16 +55,16 @@ AI agents are fast, but they often waste tokens rediscovering the project, inven
 ## Install
 
 ```bash
-brew tap helmorx/devsuite https://github.com/helmorx/devsuite
+brew tap helmorx/agent-os https://github.com/helmorx/agent-os
 brew install helmor
 ```
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/helmorx/devsuite/main/install/install.ps1 | iex"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 | iex"
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/helmorx/devsuite/main/install/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.sh | sh
 ```
 
 ## First Run

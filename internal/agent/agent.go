@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/project"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/project"
 )
 
 func InstallAdapters(root string, cfg config.Project) error {
@@ -73,10 +73,10 @@ func writeRules(root string, name string, relPath string, cfg config.Project) er
 	path := filepath.Join(root, relPath)
 	content := strings.Join([]string{
 		"---",
-		"description: HELMOR DevSuite project rules",
+		"description: HELMOR Agent OS project rules",
 		"---",
 		"",
-		"# HELMOR DevSuite",
+		"# HELMOR Agent OS",
 		"",
 		"Project: " + cfg.ProjectName,
 		"Mode: " + cfg.Mode,

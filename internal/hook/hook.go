@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/detector"
-	"github.com/helmorx/devsuite/internal/project"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/detector"
+	"github.com/helmorx/agent-os/internal/project"
 )
 
 type Input struct {

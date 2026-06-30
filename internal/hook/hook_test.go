@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/project"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/project"
 )
 
 func TestObserveModeWarnsButAllowsRunnerBypass(t *testing.T) {

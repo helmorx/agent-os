@@ -5,13 +5,13 @@ import (
 	"io"
 	"strings"
 
-	"github.com/helmorx/devsuite/internal/agent"
-	"github.com/helmorx/devsuite/internal/config"
-	"github.com/helmorx/devsuite/internal/detector"
+	"github.com/helmorx/agent-os/internal/agent"
+	"github.com/helmorx/agent-os/internal/config"
+	"github.com/helmorx/agent-os/internal/detector"
 )
 
 func Dashboard(writer io.Writer, cfg config.Project, findings []detector.Finding) {
-	fmt.Fprintln(writer, "HELMOR DevSuite")
+	fmt.Fprintln(writer, "HELMOR Agent OS")
 	fmt.Fprintln(writer, strings.Repeat("=", 16))
 	fmt.Fprintf(writer, "Project: %s\n", cfg.ProjectName)
 	fmt.Fprintf(writer, "Mode: %s\n", cfg.Mode)
