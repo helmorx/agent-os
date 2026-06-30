@@ -1,5 +1,5 @@
 class Helmor < Formula
-  desc "Local-first agent operating system for AI-assisted coding"
+  desc "Agent watcher for AI-assisted product development"
   homepage "https://github.com/helmorx/agent-os"
   version "0.1.0"
   license "Apache-2.0"

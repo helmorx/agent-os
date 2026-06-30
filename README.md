@@ -9,47 +9,51 @@
   <a href="#install"><img src="https://img.shields.io/badge/install-brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
 </p>
 
-<h1 align="center">The local operating layer for AI coding agents</h1>
+<h1 align="center">HELMOR Agent OS</h1>
 
 <p align="center">
-  HELMOR helps Codex, Claude Code, Cursor, and Windsurf spend fewer tokens, remember repo context, avoid drift, and stop unsafe actions before they ship.
+  The local agent watcher that helps developers build products from idea to launch.
+</p>
+
+<p align="center">
+  HELMOR gives Codex, Claude Code, Cursor, Windsurf, and other AI coding agents a project-aware devsuite that watches sessions, routes 14 skills, preserves context, cuts token waste, reduces drift, and enforces checks before handoff or release.
 </p>
 
 <p align="center">
   <a href="#install"><b>Install</b></a>
   ·
-  <a href="https://helmor.io"><b>Website</b></a>
-  ·
-  <a href="https://x.com/helmorlabs"><b>X</b></a>
-  ·
-  <a href="#why-helmor"><b>Why HELMOR</b></a>
+  <a href="#quickstart"><b>Quickstart</b></a>
   ·
   <a href="#helmor-skills"><b>Skills</b></a>
   ·
-  <a href="#agent-support"><b>Agent support</b></a>
+  <a href="#watcher-layer"><b>Watcher</b></a>
   ·
-  <a href="#commands"><b>Commands</b></a>
+  <a href="#docs"><b>Docs</b></a>
+  ·
+  <a href="https://helmor.io"><b>Website</b></a>
+  ·
+  <a href="https://x.com/helmorlabs"><b>X</b></a>
 </p>
 
 ---
 
 ## Why HELMOR
 
-AI agents are fast, but they often waste tokens rediscovering the project, invent missing APIs, forget earlier decisions, run the wrong commands, or drift away from product truth. HELMOR gives each repository a local operating layer for safer AI-assisted development.
+AI agents are fast, but they waste tokens rediscovering the same repo, forget decisions, invent missing APIs, run the wrong commands, and drift away from product truth. HELMOR sits inside each project as a local operating layer for the whole development lifecycle.
 
 <table>
   <tr>
     <td width="33%">
-      <h3>Reduce wasted tokens</h3>
-      <p>Prefer compact shell/test output, context cards, handoffs, and graph-first discovery instead of repeated repo scans.</p>
+      <h3>Build end to end</h3>
+      <p>Guide work from product planning to implementation, testing, handoff, and launch readiness.</p>
     </td>
     <td width="33%">
-      <h3>Stop project drift</h3>
-      <p>Keep agents aligned to truth files, package runners, checks, policies, and task state in <code>.helmor/project.json</code>.</p>
+      <h3>Spend fewer tokens</h3>
+      <p>Prefer compact output, repo context cards, handoffs, graph-first discovery, RTK, and SQZ fallback.</p>
     </td>
     <td width="33%">
-      <h3>Guard risky actions</h3>
-      <p>Detect secrets, destructive git, package-runner bypass, unsafe deploys, and launch/security closeout gaps.</p>
+      <h3>Reduce drift</h3>
+      <p>Keep agents aligned to truth files, package runners, checks, policies, skills, and local task state.</p>
     </td>
   </tr>
 </table>
@@ -74,42 +78,49 @@ Linux:
 curl -fsSL https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.sh | sh
 ```
 
-## HELMOR Skills
-
-HELMOR ships with 14 built-in skills that route AI coding agents through the right development behavior for each task. Together, they turn Agent OS into a local devsuite for planning, coding, verification, handoff, and launch safety.
-
-| Skill | What it keeps under control |
-|---|---|
-| Project Memory | Context cards, handoffs, prior decisions, and local task state |
-| Token Reduction | RTK-first output, SQZ fallback, graph-first discovery, and fewer repeated scans |
-| Architecture | System boundaries, module ownership, dependencies, and implementation shape |
-| API Contracts | Routes, schemas, clients, mocks, and integration expectations |
-| Testing | Required checks, failure evidence, closeout gates, and regression coverage |
-| Security | Secrets, destructive commands, unsafe deploys, and sensitive code paths |
-| Launch Readiness | Release blockers, final review, production approval, and ship/no-ship signals |
-| UI Design | Design drift, visual polish, accessibility basics, and product-specific interface rules |
-| Frontend | Components, routes, state, forms, responsiveness, and user workflows |
-| Backend | Services, jobs, integrations, validation, and operational behavior |
-| Data | Models, migrations, seeds, fixtures, and data integrity expectations |
-| Infrastructure | CI, package runners, deployment checks, environments, and config hygiene |
-| Docs & Handoff | Truth files, READMEs, task summaries, and next-agent continuity |
-| Product Planning | Scope, acceptance criteria, task breakdown, and user-facing intent |
-
-## First Run
+## Quickstart
 
 ```bash
 helmor install
 helmor status
-helmor doctor
 helmor dashboard
+helmor doctor
 ```
 
-Existing projects start in `observe` mode, so HELMOR warns and routes without surprise-blocking your workflow.
+Existing projects start in `observe` mode, so HELMOR warns, routes, and summarizes before it blocks. Move to `guard` or `strict` when the repo is ready for stronger enforcement.
 
-```bash
-helmor init --mode guard --force
-helmor init --mode strict --force
-```
+## Product Lifecycle
+
+| Stage | What HELMOR keeps stable |
+|---|---|
+| Plan | product intent, scope, architecture, API contracts |
+| Build | frontend, backend, data, infrastructure, and UI decisions |
+| Watch | session context, tool use, package runners, unsafe actions |
+| Verify | tests, checks, security review, detector findings |
+| Ship | release blockers, launch readiness, production approval |
+| Remember | handoffs, context cards, decisions, next-agent continuity |
+
+## HELMOR Skills
+
+HELMOR ships with 14 built-in skills that route AI coding agents toward the right behavior before they spend tokens or touch code.
+
+| Lifecycle | Skills |
+|---|---|
+| Plan | Product Planning, Architecture, API Contracts |
+| Build | Frontend, Backend, Data, Infrastructure, UI Design |
+| Verify | Testing, Security, Launch Readiness |
+| Remember | Project Memory, Token Reduction, Docs & Handoff |
+
+## Watcher Layer
+
+The watcher is the part of HELMOR that stays with the agent session:
+
+- starts sessions with compact repo context
+- routes prompts to the right HELMOR skills
+- watches tool use for risky or drifty actions
+- blocks secrets, destructive git, runner bypass, and unsafe deploy paths when configured
+- tracks touched areas, pending checks, and closeout state
+- preserves handoffs before compaction, stop, or session end
 
 <p align="center">
   <img src="assets/terminal-preview.svg" alt="HELMOR terminal dashboard preview" width="88%">
@@ -125,7 +136,7 @@ helmor init --mode strict --force
   state.json            local runtime state, ignored by git
 ```
 
-HELMOR is local-first. It does not require an account, upload your source, or send telemetry.
+HELMOR is local-first. It does not require an account, upload source, or send telemetry in v1.
 
 ## Agent Support
 
@@ -135,7 +146,7 @@ HELMOR is local-first. It does not require an account, upload your source, or se
 | Claude Code | yes | hook-compatible command entrypoints |
 | Cursor | yes | generated project rules |
 | Windsurf | yes | generated project rules |
-| Other agents | compatible | use `helmor hook --event <EventName>` |
+| Other agents | compatible | `helmor hook --event <EventName>` |
 
 ## Modes
 
@@ -145,61 +156,24 @@ HELMOR is local-first. It does not require an account, upload your source, or se
 | `guard` | active development with agents | block secrets, destructive git, wrong runner, unsafe deploys |
 | `strict` | release, launch, security-sensitive work | enforce checks, handoffs, closeout, security review |
 
-## Detector Packs
+## Docs
 
-<table>
-  <tr>
-    <td><b>Secrets</b><br>secret-shaped filenames and unsafe paths</td>
-    <td><b>Shell/Git</b><br>destructive git and unsafe deploy commands</td>
-    <td><b>Runner Drift</b><br>wrong package manager and noisy retries</td>
-  </tr>
-  <tr>
-    <td><b>Truth Files</b><br>missing project authority docs</td>
-    <td><b>Token Waste</b><br>missing or unused compression/discovery tools</td>
-    <td><b>Design Drift</b><br>generic AI UI patterns inspired by modern design audits</td>
-  </tr>
-</table>
-
-## Commands
-
-```bash
-helmor init
-helmor install
-helmor uninstall
-helmor status
-helmor doctor
-helmor dashboard
-helmor task start "feature work"
-helmor task finish
-helmor checks
-helmor handoff
-helmor reduce-tokens
-helmor verify
-helmor security
-helmor design init
-helmor design audit
-helmor design polish
-```
-
-Hook-compatible entrypoints:
-
-```bash
-helmor hook --event SessionStart
-helmor hook --event UserPromptSubmit
-helmor hook --event PreToolUse
-helmor hook --event PostToolUse
-helmor hook --event Stop
-helmor hook --event PreCompact
-helmor hook --event SessionEnd
-```
+- [Quickstart](docs/QUICKSTART.md)
+- [Skills](docs/SKILLS.md)
+- [Commands](docs/COMMANDS.md)
+- [Agent adapters](docs/ADAPTERS.md)
+- [Detector packs](docs/DETECTORS.md)
+- [Project profile](docs/PROJECT_PROFILE.md)
+- [Security policy](SECURITY.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
 
 ## Built For
 
-- developers shipping real projects with AI agents
-- teams that want repeatable AI coding workflows
+- developers building new products with AI agents
 - vibe coders who need less hallucination and more structure
-- frontend teams that want deterministic UI polish checks
-- high-risk apps that need launch and security discipline
+- teams that want repeatable AI-assisted development workflows
+- projects that need context, testing, handoff, and launch discipline
 
 ## License
 
