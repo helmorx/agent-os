@@ -4,6 +4,13 @@ All notable changes to HELMOR Agent OS are documented here.
 
 ## Unreleased
 
+## 0.1.2 - 2026-06-30
+
+- Added npm distribution under the short package name `helmor`.
+- Added npm-family one-off commands for `npx`, `pnpm dlx`, `yarn dlx`, and `bunx`.
+- Added scoped npm alias package metadata for `@helmorx/agent-os`.
+- Added npm package tests and release checks for Go/npm version alignment.
+
 ## 0.1.1 - 2026-06-30
 
 - Reframed public repository positioning around the local agent watcher and end-to-end product development lifecycle.

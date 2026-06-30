@@ -6,7 +6,7 @@
   <a href="https://github.com/helmorx/agent-os/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/agent-os/ci.yml?branch=main&label=ci&style=flat-square" alt="CI"></a>
   <a href="https://github.com/helmorx/agent-os/releases"><img src="https://img.shields.io/github/v/release/helmorx/agent-os?style=flat-square&include_prereleases" alt="Latest release"></a>
   <a href="https://github.com/helmorx/agent-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-0E1724?style=flat-square" alt="Apache-2.0 license"></a>
-  <a href="#install"><img src="https://img.shields.io/badge/install-brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
+  <a href="#install"><img src="https://img.shields.io/badge/install-npm%20%7C%20brew%20%7C%20powershell%20%7C%20curl-19C37D?style=flat-square" alt="Install"></a>
 </p>
 
 <h1 align="center">HELMOR Agent OS</h1>
@@ -60,7 +60,22 @@ AI agents are fast, but they waste tokens rediscovering the same repo, forget de
 
 ## Install
 
-macOS:
+Node.js:
+
+```bash
+npm i -g helmor
+```
+
+One-off:
+
+```bash
+npx helmor@latest install
+pnpm dlx helmor install
+yarn dlx helmor install
+bunx helmor install
+```
+
+macOS Homebrew:
 
 ```bash
 brew install helmorx/tap/helmoragent

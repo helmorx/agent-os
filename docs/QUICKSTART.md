@@ -4,7 +4,22 @@ HELMOR Agent OS is designed for existing repositories and new product builds. It
 
 ## 1. Install HELMOR
 
-macOS:
+Node.js:
+
+```bash
+npm i -g helmor
+```
+
+One-off:
+
+```bash
+npx helmor@latest install
+pnpm dlx helmor install
+yarn dlx helmor install
+bunx helmor install
+```
+
+macOS Homebrew:
 
 ```bash
 brew install helmorx/tap/helmoragent

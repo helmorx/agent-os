@@ -4,4 +4,4 @@ coverage/
 .DS_Store
 .helmor/
 *.test
-
+npm/helmor/vendor/

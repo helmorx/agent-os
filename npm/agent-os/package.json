@@ -1,0 +1,38 @@
+{
+  "name": "@helmorx/agent-os",
+  "version": "0.1.2",
+  "description": "Scoped npm alias for the HELMOR Agent OS CLI",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/helmorx/agent-os",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helmorx/agent-os.git",
+    "directory": "npm/agent-os"
+  },
+  "bugs": {
+    "url": "https://github.com/helmorx/agent-os/issues"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "cli",
+    "helmor"
+  ],
+  "bin": {
+    "helmor": "bin/helmor.js"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "helmor": "0.1.2"
+  },
+  "scripts": {
+    "test": "node -c bin/helmor.js",
+    "pack:dry": "npm pack --dry-run --json"
+  }
+}

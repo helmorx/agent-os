@@ -1,0 +1,49 @@
+{
+  "name": "helmor",
+  "version": "0.1.2",
+  "description": "Agent watcher for AI-assisted product development",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/helmorx/agent-os",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helmorx/agent-os.git",
+    "directory": "npm/helmor"
+  },
+  "bugs": {
+    "url": "https://github.com/helmorx/agent-os/issues"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "cli",
+    "codex",
+    "claude",
+    "cursor",
+    "windsurf"
+  ],
+  "bin": {
+    "helmor": "bin/helmor.js"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/install.js",
+    "test": "node --test test/*.test.js",
+    "pack:dry": "npm pack --dry-run --json"
+  }
+}
