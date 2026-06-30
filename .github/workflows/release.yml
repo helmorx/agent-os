@@ -1,0 +1,42 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.x"
+      - run: |
+          mkdir -p dist
+          for os in darwin linux windows; do
+            for arch in amd64 arm64; do
+              ext=""
+              archive_ext="tar.gz"
+              if [ "$os" = "windows" ]; then
+                ext=".exe"
+                archive_ext="zip"
+              fi
+              name="helmor_${os}_${arch}"
+              GOOS="$os" GOARCH="$arch" go build -o "dist/helmor$ext" ./cmd/helmor
+              if [ "$archive_ext" = "zip" ]; then
+                (cd dist && zip "$name.zip" "helmor$ext")
+              else
+                (cd dist && tar -czf "$name.tar.gz" "helmor$ext")
+              fi
+              rm "dist/helmor$ext"
+            done
+          done
+          (cd dist && sha256sum * > checksums.txt)
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+
