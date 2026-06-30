@@ -24,6 +24,8 @@
   ·
   <a href="#why-helmor"><b>Why HELMOR</b></a>
   ·
+  <a href="#helmor-skills"><b>Skills</b></a>
+  ·
   <a href="#agent-support"><b>Agent support</b></a>
   ·
   <a href="#commands"><b>Commands</b></a>
@@ -54,18 +56,44 @@ AI agents are fast, but they often waste tokens rediscovering the project, inven
 
 ## Install
 
+macOS:
+
 ```bash
-brew tap helmorx/agent-os https://github.com/helmorx/agent-os
-brew install helmor
+brew install --formula https://raw.githubusercontent.com/helmorx/agent-os/main/Formula/helmor.rb
 ```
+
+Windows:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 | iex"
 ```
 
+Linux:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.sh | sh
 ```
+
+## HELMOR Skills
+
+HELMOR ships with 14 built-in skills that route AI coding agents through the right development behavior for each task. Together, they turn Agent OS into a local devsuite for planning, coding, verification, handoff, and launch safety.
+
+| Skill | What it keeps under control |
+|---|---|
+| Project Memory | Context cards, handoffs, prior decisions, and local task state |
+| Token Reduction | RTK-first output, SQZ fallback, graph-first discovery, and fewer repeated scans |
+| Architecture | System boundaries, module ownership, dependencies, and implementation shape |
+| API Contracts | Routes, schemas, clients, mocks, and integration expectations |
+| Testing | Required checks, failure evidence, closeout gates, and regression coverage |
+| Security | Secrets, destructive commands, unsafe deploys, and sensitive code paths |
+| Launch Readiness | Release blockers, final review, production approval, and ship/no-ship signals |
+| UI Design | Design drift, visual polish, accessibility basics, and product-specific interface rules |
+| Frontend | Components, routes, state, forms, responsiveness, and user workflows |
+| Backend | Services, jobs, integrations, validation, and operational behavior |
+| Data | Models, migrations, seeds, fixtures, and data integrity expectations |
+| Infrastructure | CI, package runners, deployment checks, environments, and config hygiene |
+| Docs & Handoff | Truth files, READMEs, task summaries, and next-agent continuity |
+| Product Planning | Scope, acceptance criteria, task breakdown, and user-facing intent |
 
 ## First Run
 
