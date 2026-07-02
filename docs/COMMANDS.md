@@ -6,7 +6,7 @@ This is the full CLI reference for HELMOR Agent. The README keeps only the four 
 
 | Command | Purpose |
 |---|---|
-| `helmor install` | Initialize the project and generate agent adapters. |
+| `helmor install` | Initialize the project, generate adapters, and merge Codex/Claude global hooks. |
 | `helmor status` | Show compact project state. |
 | `helmor dashboard` | Show the terminal dashboard. |
 | `helmor doctor` | Run deterministic project checks. |
@@ -26,6 +26,7 @@ This is the full CLI reference for HELMOR Agent. The README keeps only the four 
 | `helmor init --mode observe` | Initialize with warning-only behavior. |
 | `helmor init --mode guard --force` | Enable stronger blocking behavior. |
 | `helmor init --mode strict --force` | Enable release and security-sensitive enforcement. |
+| `helmor install --project-only` | Initialize project files and adapters without touching global hook files. |
 | `helmor uninstall` | Remove `.helmor` from the current project. |
 
 ## Development Workflow

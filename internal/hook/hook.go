@@ -33,14 +33,14 @@ type Output struct {
 func Handle(stdin io.Reader, explicitEvent string) (Output, int) {
 	var input Input
 	if err := json.NewDecoder(stdin).Decode(&input); err != nil && err != io.EOF {
-		return Output{Continue: true, SuppressOutput: true}, 0
+		return Output{Continue: true, SuppressOutput: suppressOutputSafe(explicitEvent)}, 0
 	}
 	if input.HookEventName == "" {
 		input.HookEventName = explicitEvent
 	}
 	root, err := project.FindRoot(input.CWD)
 	if err != nil {
-		return Output{Continue: true, SuppressOutput: true}, 0
+		return Output{Continue: true, SuppressOutput: suppressOutputSafe(input.HookEventName)}, 0
 	}
 	cfg, installed, err := project.LoadOrDefault(root)
 	if err != nil {
@@ -139,7 +139,7 @@ func handlePreTool(root string, cfg config.Project, state config.RuntimeState, i
 	if cfg.Mode == config.ModeGuard || cfg.Mode == config.ModeStrict {
 		return deny(message), 2
 	}
-	return Output{Continue: true, SystemMessage: message, HookSpecificOutput: map[string]any{"permissionDecision": "allow"}}, 0
+	return Output{Continue: true, SystemMessage: message}, 0
 }
 
 func handlePostTool(root string, state config.RuntimeState, input Input) Output {
@@ -151,7 +151,7 @@ func handlePostTool(root string, state config.RuntimeState, input Input) Output 
 		state.CodeGraphSeen = true
 	}
 	_ = project.SaveState(root, state)
-	return Output{Continue: true, SuppressOutput: true}
+	return Output{Continue: true}
 }
 
 func handleStop(cfg config.Project, state config.RuntimeState) (Output, int) {
@@ -171,7 +171,10 @@ func handleStop(cfg config.Project, state config.RuntimeState) (Output, int) {
 		reason := strings.Join(blockers, "; ")
 		return Output{Continue: false, Decision: "block", Reason: reason, SystemMessage: "HELMOR strict closeout blocked: " + reason}, 2
 	}
-	return Output{Continue: true, Decision: "approve", SystemMessage: "HELMOR closeout approved. Save memory or handoff if useful."}, 0
+	// No Decision here: Claude Code's Stop schema accepts "approve", but
+	// Codex's BlockDecisionWire enum for Stop only defines "block" — an
+	// absent decision already means "don't block" on both agents.
+	return Output{Continue: true, SystemMessage: "HELMOR closeout approved. Save memory or handoff if useful."}, 0
 }
 
 func handlePreserve(root string, cfg config.Project, state config.RuntimeState, event string) Output {
@@ -188,12 +191,29 @@ func handlePreserve(root string, cfg config.Project, state config.RuntimeState, 
 	return Output{Continue: true, SystemMessage: "HELMOR handoff preserved at " + path}
 }
 
+// allow signals an unopinionated PreToolUse pass-through. Both Claude Code
+// and Codex treat the absence of a decision as "proceed normally" — Codex's
+// hook validator additionally rejects an explicit permissionDecision:allow
+// on PreToolUse, so this must stay decision-less rather than echoing "allow".
 func allow() Output {
-	return Output{Continue: true, SuppressOutput: true, HookSpecificOutput: map[string]any{"permissionDecision": "allow"}}
+	return Output{Continue: true}
+}
+
+// suppressOutputSafe reports whether the suppressOutput field is valid for
+// the given hook event. Codex's hook wire schema rejects suppressOutput on
+// PreToolUse/PostToolUse/PermissionRequest (unlike Claude Code, which accepts
+// it broadly), so those events must omit it.
+func suppressOutputSafe(event string) bool {
+	switch event {
+	case "PreToolUse", "PostToolUse", "PermissionRequest":
+		return false
+	default:
+		return true
+	}
 }
 
 func deny(reason string) Output {
-	return Output{Continue: false, SystemMessage: reason, HookSpecificOutput: map[string]any{"permissionDecision": "deny", "permissionDecisionReason": reason}}
+	return Output{Continue: false, SystemMessage: reason, HookSpecificOutput: map[string]any{"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": reason}}
 }
 
 func commandFrom(input map[string]any) string {

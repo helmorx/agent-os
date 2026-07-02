@@ -11,6 +11,11 @@ import (
 	"github.com/helmorx/agent-os/internal/project"
 )
 
+// legacyWatchScript is a home-relative path fragment, not an absolute path:
+// matching on it via strings.Contains lets migration detection work on any
+// user's machine, not just the one whose home directory it was written for.
+const legacyWatchScript = ".helmor/bin/helmor-watch.py"
+
 func InstallAdapters(root string, cfg config.Project) error {
 	if err := os.MkdirAll(filepath.Join(root, project.DirName, "adapters"), 0o755); err != nil {
 		return err
@@ -39,6 +44,83 @@ func InstallAdapters(root string, cfg config.Project) error {
 		}
 	}
 	return nil
+}
+
+func InstallGlobalHooks(cfg config.Project) error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	return InstallGlobalHooksAt(home, cfg)
+}
+
+func InstallGlobalHooksAt(home string, cfg config.Project) error {
+	for _, adapter := range cfg.Agents {
+		if !adapter.Enabled || adapter.Adapter != "hooks" {
+			continue
+		}
+		switch adapter.Name {
+		case "codex":
+			if err := mergeGlobalHookFile(filepath.Join(home, ".codex", "hooks.json")); err != nil {
+				return err
+			}
+		case "claude":
+			// Claude Code only loads ~/.claude/settings.json at the user level;
+			// settings.local.json is a project-scoped override file and is never
+			// read from the home directory, so hooks written there are inert.
+			if err := mergeGlobalHookFile(filepath.Join(home, ".claude", "settings.json")); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+type GlobalHookStatus struct {
+	Agent   string
+	Path    string
+	OK      bool
+	Message string
+}
+
+func CheckGlobalHooks(cfg config.Project) []GlobalHookStatus {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return []GlobalHookStatus{{Agent: "global", OK: false, Message: err.Error()}}
+	}
+	return CheckGlobalHooksAt(home, cfg)
+}
+
+func CheckGlobalHooksAt(home string, cfg config.Project) []GlobalHookStatus {
+	var statuses []GlobalHookStatus
+	for _, adapter := range cfg.Agents {
+		if !adapter.Enabled || adapter.Adapter != "hooks" {
+			continue
+		}
+		var path string
+		switch adapter.Name {
+		case "codex":
+			path = filepath.Join(home, ".codex", "hooks.json")
+		case "claude":
+			path = filepath.Join(home, ".claude", "settings.json")
+		default:
+			continue
+		}
+		ok, legacy, err := inspectGlobalHookFile(path)
+		status := GlobalHookStatus{Agent: adapter.Name, Path: path, OK: ok && !legacy}
+		switch {
+		case err != nil:
+			status.Message = err.Error()
+		case legacy:
+			status.Message = "legacy HELMOR Python hook entry remains"
+		case !ok:
+			status.Message = "official HELMOR hook entries missing"
+		default:
+			status.Message = "official HELMOR hook entries installed"
+		}
+		statuses = append(statuses, status)
+	}
+	return statuses
 }
 
 func AdapterSummary(cfg config.Project) []string {
@@ -102,6 +184,132 @@ func hookMap() map[string]any {
 		"PreCompact":       []any{hookEntry("*", command+"PreCompact")},
 		"SessionEnd":       []any{hookEntry("*", command+"SessionEnd")},
 	}
+}
+
+func mergeGlobalHookFile(path string) error {
+	data := map[string]any{}
+	if raw, err := os.ReadFile(path); err == nil && len(strings.TrimSpace(string(raw))) > 0 {
+		if err := json.Unmarshal(raw, &data); err != nil {
+			return fmt.Errorf("load %s: %w", path, err)
+		}
+	} else if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+
+	hooks, _ := data["hooks"].(map[string]any)
+	if hooks == nil {
+		hooks = map[string]any{}
+		data["hooks"] = hooks
+	}
+
+	for event, entries := range hooks {
+		hooks[event] = filterNonHelmorEntries(entries)
+	}
+	for event, entries := range hookMap() {
+		hooks[event] = appendEntries(hooks[event], entries)
+	}
+	return writeJSON(path, data)
+}
+
+func inspectGlobalHookFile(path string) (bool, bool, error) {
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		return false, false, err
+	}
+	var data map[string]any
+	if err := json.Unmarshal(raw, &data); err != nil {
+		return false, false, err
+	}
+	hooks, _ := data["hooks"].(map[string]any)
+	if hooks == nil {
+		return false, false, nil
+	}
+	allOfficial := true
+	legacy := false
+	for event := range hookMap() {
+		entries, ok := hooks[event].([]any)
+		if !ok || !entriesContainOfficial(entries, event) {
+			allOfficial = false
+		}
+		if entriesContainLegacy(entries) {
+			legacy = true
+		}
+	}
+	return allOfficial, legacy, nil
+}
+
+func filterNonHelmorEntries(entries any) []any {
+	list, ok := entries.([]any)
+	if !ok {
+		return nil
+	}
+	var kept []any
+	for _, entry := range list {
+		if !entryHasHelmorCommand(entry) {
+			kept = append(kept, entry)
+		}
+	}
+	return kept
+}
+
+func appendEntries(existing any, additions any) []any {
+	out, _ := existing.([]any)
+	newEntries, _ := additions.([]any)
+	return append(out, newEntries...)
+}
+
+func entriesContainOfficial(entries []any, event string) bool {
+	want := "helmor hook --event " + event
+	for _, entry := range entries {
+		if entryHasCommand(entry, want) {
+			return true
+		}
+	}
+	return false
+}
+
+func entriesContainLegacy(entries []any) bool {
+	for _, entry := range entries {
+		if entryHasCommandContaining(entry, legacyWatchScript) {
+			return true
+		}
+	}
+	return false
+}
+
+func entryHasHelmorCommand(entry any) bool {
+	return entryHasCommandContaining(entry, "helmor hook --event") ||
+		entryHasCommandContaining(entry, legacyWatchScript)
+}
+
+func entryHasCommand(entry any, command string) bool {
+	return entryHasCommandMatching(entry, func(value string) bool { return value == command })
+}
+
+func entryHasCommandContaining(entry any, needle string) bool {
+	return entryHasCommandMatching(entry, func(value string) bool { return strings.Contains(value, needle) })
+}
+
+func entryHasCommandMatching(entry any, match func(string) bool) bool {
+	entryMap, ok := entry.(map[string]any)
+	if !ok {
+		return false
+	}
+	rawHooks, ok := entryMap["hooks"].([]any)
+	if !ok {
+		return false
+	}
+	for _, hook := range rawHooks {
+		hookMap, ok := hook.(map[string]any)
+		if !ok {
+			continue
+		}
+		command, _ := hookMap["command"].(string)
+		if match(command) {
+			return true
+		}
+	}
+	return false
 }
 
 func hookEntry(matcher string, command string) map[string]any {

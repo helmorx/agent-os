@@ -45,7 +45,13 @@ Run this inside the project root:
 helmor install
 ```
 
-HELMOR creates `.helmor/project.json`, generated agent adapters, and local runtime files for context, state, and handoff.
+HELMOR creates `.helmor/project.json`, generated agent adapters, local runtime files for context/state/handoff, and merges official HELMOR hook entries into Codex and Claude global hook configs.
+
+Use this when you only want project files and reviewable adapter JSON:
+
+```bash
+helmor install --project-only
+```
 
 ## 3. Check The Project
 

@@ -62,6 +62,8 @@ helmor dashboard
 helmor doctor
 ```
 
+`helmor install` now writes the project profile/adapters and merges official Codex/Claude global hook entries. Use `helmor install --project-only` when you want reviewable project files without changing global hooks.
+
 Existing projects start in `observe` mode, so HELMOR warns, routes, and summarizes before it blocks. Move to `guard` or `strict` when the repo is ready for stronger enforcement.
 
 ## Why HELMOR

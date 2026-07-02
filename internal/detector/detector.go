@@ -25,12 +25,29 @@ type Finding struct {
 }
 
 var secretNamePatterns = []*regexp.Regexp{
-	regexp.MustCompile(`(?i)(^|/)\.env($|\.)`),
-	regexp.MustCompile(`(?i)\.secrets(/|$)`),
-	regexp.MustCompile(`(?i)(secret|credential|private.*key|auth.*token|access.*token|refresh.*token|mnemonic)`),
-	regexp.MustCompile(`(?i)(backup.*\.json|keystore.*\.(json|txt|env|key|pem|bak|enc)|wallet.*\.(key|pem|json))`),
-	regexp.MustCompile(`(?i)(^|/)(id_rsa|id_dsa|id_ecdsa|id_ed25519)$`),
-	regexp.MustCompile(`(?i)\.(pem|key|p12|pfx)$`),
+	regexp.MustCompile(`(?i)(^|[-_.])(secret|credential|credentials|creds|token|mnemonic)([-_.]|$)`),
+	regexp.MustCompile(`(?i)(^|[-_.])private[-_.]*key([-_.]|$)`),
+	regexp.MustCompile(`(?i)(^|[-_.])(backup|keystore|wallet)([-_.]|$)`),
+}
+
+var secretFileExtensions = map[string]bool{
+	".bak":   true,
+	".enc":   true,
+	".env":   true,
+	".json":  true,
+	".key":   true,
+	".local": true,
+	".p12":   true,
+	".pem":   true,
+	".pfx":   true,
+	".txt":   true,
+}
+
+var alwaysSecretExtensions = map[string]bool{
+	".key": true,
+	".p12": true,
+	".pem": true,
+	".pfx": true,
 }
 
 var designPatterns = []struct {
@@ -52,12 +69,32 @@ func Run(root string, cfg config.Project) []Finding {
 }
 
 func IsSecretPath(path string) bool {
-	normalized := filepath.ToSlash(path)
+	normalized := strings.Trim(filepath.ToSlash(path), "/")
+	if normalized == "" {
+		return false
+	}
+	parts := strings.Split(normalized, "/")
+	for _, part := range parts {
+		if strings.EqualFold(part, ".secrets") {
+			return true
+		}
+	}
+	base := strings.ToLower(parts[len(parts)-1])
+	if strings.HasSuffix(base, ".env.example") || strings.HasSuffix(base, ".env.staging.example") {
+		return false
+	}
+	if base == ".env" || strings.HasPrefix(base, ".env.") {
+		return true
+	}
+	switch base {
+	case "id_rsa", "id_dsa", "id_ecdsa", "id_ed25519":
+		return true
+	}
+	if alwaysSecretExtensions[filepath.Ext(base)] {
+		return true
+	}
 	for _, pattern := range secretNamePatterns {
-		if pattern.MatchString(normalized) {
-			if strings.HasSuffix(strings.ToLower(normalized), ".env.example") || strings.HasSuffix(strings.ToLower(normalized), ".env.staging.example") {
-				return false
-			}
+		if pattern.MatchString(base) && secretFileExtensions[filepath.Ext(base)] {
 			return true
 		}
 	}
@@ -157,21 +194,29 @@ func detectTooling(cfg config.Project) []Finding {
 
 func scanFiles(root string, cfg config.Project) []Finding {
 	var findings []Finding
+	ignorePatterns := readRootGitignore(root)
 	_ = filepath.WalkDir(root, func(path string, entry os.DirEntry, err error) error {
 		if err != nil {
 			return nil
 		}
 		name := entry.Name()
+		rel, relErr := filepath.Rel(root, path)
+		if relErr != nil {
+			rel = path
+		}
+		rel = filepath.ToSlash(rel)
 		if entry.IsDir() {
 			switch name {
 			case ".git", "node_modules", ".next", "dist", "coverage", "target", ".helmor":
 				return filepath.SkipDir
 			}
+			if rel != "." && isIgnoredPath(rel+"/", ignorePatterns) {
+				return filepath.SkipDir
+			}
 			return nil
 		}
-		rel, relErr := filepath.Rel(root, path)
-		if relErr != nil {
-			rel = path
+		if isIgnoredPath(rel, ignorePatterns) {
+			return nil
 		}
 		if IsSecretPath(rel) {
 			findings = append(findings, Finding{Rule: "secret-shaped-filename", Severity: Block, Path: rel, Message: "secret-shaped filename should not be committed or written by agents."})
@@ -191,6 +236,53 @@ func scanFiles(root string, cfg config.Project) []Finding {
 		return nil
 	})
 	return findings
+}
+
+func readRootGitignore(root string) []string {
+	data, err := os.ReadFile(filepath.Join(root, ".gitignore"))
+	if err != nil {
+		return nil
+	}
+	var patterns []string
+	for _, line := range strings.Split(string(data), "\n") {
+		pattern := strings.TrimSpace(line)
+		if pattern == "" || strings.HasPrefix(pattern, "#") || strings.HasPrefix(pattern, "!") {
+			continue
+		}
+		patterns = append(patterns, filepath.ToSlash(pattern))
+	}
+	return patterns
+}
+
+func isIgnoredPath(rel string, patterns []string) bool {
+	rel = strings.TrimPrefix(filepath.ToSlash(rel), "./")
+	for _, pattern := range patterns {
+		if matchesIgnorePattern(rel, pattern) {
+			return true
+		}
+	}
+	return false
+}
+
+func matchesIgnorePattern(rel string, pattern string) bool {
+	if pattern == "" {
+		return false
+	}
+	if strings.HasSuffix(pattern, "/") {
+		prefix := strings.TrimSuffix(pattern, "/")
+		return rel == prefix || strings.HasPrefix(rel, prefix+"/")
+	}
+	if strings.Contains(pattern, "/") {
+		if ok, _ := filepath.Match(pattern, rel); ok {
+			return true
+		}
+		return rel == pattern
+	}
+	base := filepath.Base(rel)
+	if ok, _ := filepath.Match(pattern, base); ok {
+		return true
+	}
+	return rel == pattern || strings.HasPrefix(rel, pattern+"/")
 }
 
 func isSourceLike(path string) bool {

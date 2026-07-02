@@ -75,7 +75,7 @@ func usage(writer io.Writer) {
 	fmt.Fprintln(writer)
 	fmt.Fprintln(writer, "Commands:")
 	fmt.Fprintln(writer, "  init              create .helmor/project.json in the current project")
-	fmt.Fprintln(writer, "  install           init project and generate agent adapters")
+	fmt.Fprintln(writer, "  install           init project, generate adapters, and merge global hooks")
 	fmt.Fprintln(writer, "  uninstall         remove .helmor from the current project")
 	fmt.Fprintln(writer, "  status            show compact project status")
 	fmt.Fprintln(writer, "  doctor            run deterministic checks")
@@ -115,6 +115,7 @@ func runInstall(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.SetOutput(stderr)
 	mode := fs.String("mode", config.ModeObserve, "observe, guard, or strict")
 	force := fs.Bool("force", false, "overwrite existing project profile")
+	projectOnly := fs.Bool("project-only", false, "write project profile and adapters without merging global agent hooks")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -136,6 +137,12 @@ func runInstall(args []string, stdout io.Writer, stderr io.Writer) int {
 	if err := agent.InstallAdapters(root, cfg); err != nil {
 		fmt.Fprintln(stderr, err)
 		return 1
+	}
+	if !*projectOnly {
+		if err := agent.InstallGlobalHooks(cfg); err != nil {
+			fmt.Fprintln(stderr, err)
+			return 1
+		}
 	}
 	fmt.Fprintf(stdout, "Installed HELMOR adapters for %s\n", cfg.ProjectName)
 	return 0
@@ -170,12 +177,37 @@ func runStatus(_ []string, stdout io.Writer, stderr io.Writer) int {
 }
 
 func runDoctor(_ []string, stdout io.Writer, stderr io.Writer) int {
-	root, cfg, err := loadProject(".")
+	root, err := project.FindRoot(".")
 	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 1
 	}
+	cfg, installed, err := project.LoadOrDefault(root)
+	if err != nil {
+		fmt.Fprintln(stderr, err)
+		return 1
+	}
+	if !installed {
+		fmt.Fprintln(stdout, "[warn] profile.missing .helmor/project.json run `helmor install` or `helmor init`")
+	}
 	findings := detector.Run(root, cfg)
+	for _, status := range agent.CheckGlobalHooks(cfg) {
+		severity := detector.Info
+		rule := "global-hooks.installed"
+		if !status.OK {
+			severity = detector.Warn
+			rule = "global-hooks.missing"
+			if strings.Contains(status.Message, "legacy") {
+				rule = "global-hooks.legacy"
+			}
+		}
+		findings = append(findings, detector.Finding{
+			Rule:     rule,
+			Severity: severity,
+			Path:     status.Path,
+			Message:  status.Agent + ": " + status.Message,
+		})
+	}
 	if len(findings) == 0 {
 		fmt.Fprintln(stdout, "HELMOR doctor: ok")
 		return 0
