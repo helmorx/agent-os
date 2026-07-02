@@ -2,6 +2,11 @@
 
 All notable changes to HELMOR Agent are documented here.
 
+## 0.1.7 - 2026-07-02
+
+- Fixed shell installer checksum verification by saving the downloaded release archive under the same asset filename published in `checksums.txt`.
+- Fixed global Codex/Claude hook entries to use the absolute installed `helmor` binary path instead of relying on `helmor` being present on the hook runtime `PATH`. Existing `helmor hook --event ...` entries are still recognized during doctor/migration checks.
+
 ## 0.1.6 - 2026-07-02
 
 - Updated all repository URL references from `helmorx/agent-os` to `helmorx/helmoragent` (badges, install scripts, Homebrew formula, npm package metadata, docs) to match the renamed GitHub repository. No logic or functionality changed. The Go module path is intentionally left as `github.com/helmorx/agent-os`, which continues to resolve via GitHub's automatic redirect.

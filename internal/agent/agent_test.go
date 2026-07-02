@@ -122,6 +122,33 @@ func TestCheckGlobalHooksReportsLegacy(t *testing.T) {
 	}
 }
 
+func TestHookCommandPrefixUsesAbsoluteHelmorExecutable(t *testing.T) {
+	exe := filepath.Join(t.TempDir(), "helmor")
+	prefix := hookCommandPrefixForExecutable(exe)
+
+	if prefix == "helmor hook --event " {
+		t.Fatalf("expected absolute hook command, got %q", prefix)
+	}
+	if !strings.Contains(prefix, exe) || !strings.HasSuffix(prefix, " hook --event ") {
+		t.Fatalf("unexpected hook command prefix: %q", prefix)
+	}
+}
+
+func TestOfficialHookDetectionAcceptsAbsoluteAndPathCommands(t *testing.T) {
+	event := "SessionStart"
+	absolute := quoteCommandPath(filepath.Join(t.TempDir(), "helmor")) + " hook --event " + event
+
+	if !isOfficialHelmorHookCommand(absolute, event) {
+		t.Fatalf("absolute hook command was not official: %s", absolute)
+	}
+	if !isOfficialHelmorHookCommand("helmor hook --event "+event, event) {
+		t.Fatal("PATH-based hook command should remain recognized for existing installs")
+	}
+	if isOfficialHelmorHookCommand("python3 /Users/x/Documents/.helmor/bin/helmor-watch.py hook --event "+event, event) {
+		t.Fatal("legacy Python watcher must not count as official")
+	}
+}
+
 func countOfficialCommands(t *testing.T, raw []byte, event string) int {
 	t.Helper()
 	var data map[string]any
@@ -130,14 +157,14 @@ func countOfficialCommands(t *testing.T, raw []byte, event string) int {
 	}
 	hooks, _ := data["hooks"].(map[string]any)
 	entries, _ := hooks[event].([]any)
-	want := "helmor hook --event " + event
 	count := 0
 	for _, entry := range entries {
 		entryMap, _ := entry.(map[string]any)
 		rawHooks, _ := entryMap["hooks"].([]any)
 		for _, hook := range rawHooks {
 			hookMap, _ := hook.(map[string]any)
-			if hookMap["command"] == want {
+			command, _ := hookMap["command"].(string)
+			if isOfficialHelmorHookCommand(command, event) {
 				count++
 			}
 		}

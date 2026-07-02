@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/helmorx/agent-os/internal/config"
@@ -174,7 +176,7 @@ func writeRules(root string, name string, relPath string, cfg config.Project) er
 }
 
 func hookMap() map[string]any {
-	command := "helmor hook --event "
+	command := hookCommandPrefix()
 	return map[string]any{
 		"SessionStart":     []any{hookEntry("startup|resume|clear|compact", command+"SessionStart")},
 		"UserPromptSubmit": []any{hookEntry("*", command+"UserPromptSubmit")},
@@ -184,6 +186,31 @@ func hookMap() map[string]any {
 		"PreCompact":       []any{hookEntry("*", command+"PreCompact")},
 		"SessionEnd":       []any{hookEntry("*", command+"SessionEnd")},
 	}
+}
+
+func hookCommandPrefix() string {
+	exe, err := os.Executable()
+	if err != nil {
+		return "helmor hook --event "
+	}
+	return hookCommandPrefixForExecutable(exe)
+}
+
+func hookCommandPrefixForExecutable(exe string) string {
+	if executableBase(exe) != "helmor" && executableBase(exe) != "helmor.exe" {
+		return "helmor hook --event "
+	}
+	if abs, err := filepath.Abs(exe); err == nil {
+		exe = abs
+	}
+	return quoteCommandPath(exe) + " hook --event "
+}
+
+func quoteCommandPath(exe string) string {
+	if runtime.GOOS == "windows" {
+		return `"` + strings.ReplaceAll(exe, `"`, `\"`) + `"`
+	}
+	return "'" + strings.ReplaceAll(exe, "'", "'\"'\"'") + "'"
 }
 
 func mergeGlobalHookFile(path string) error {
@@ -259,9 +286,10 @@ func appendEntries(existing any, additions any) []any {
 }
 
 func entriesContainOfficial(entries []any, event string) bool {
-	want := "helmor hook --event " + event
 	for _, entry := range entries {
-		if entryHasCommand(entry, want) {
+		if entryHasCommandMatching(entry, func(value string) bool {
+			return isOfficialHelmorHookCommand(value, event)
+		}) {
 			return true
 		}
 	}
@@ -278,12 +306,29 @@ func entriesContainLegacy(entries []any) bool {
 }
 
 func entryHasHelmorCommand(entry any) bool {
-	return entryHasCommandContaining(entry, "helmor hook --event") ||
-		entryHasCommandContaining(entry, legacyWatchScript)
+	return entryHasCommandMatching(entry, func(value string) bool {
+		return isHelmorHookCommand(value) || strings.Contains(value, legacyWatchScript)
+	})
 }
 
-func entryHasCommand(entry any, command string) bool {
-	return entryHasCommandMatching(entry, func(value string) bool { return value == command })
+func isOfficialHelmorHookCommand(command string, event string) bool {
+	command = strings.TrimSpace(command)
+	return !strings.Contains(command, legacyWatchScript) &&
+		isHelmorHookCommand(command) &&
+		strings.HasSuffix(command, " hook --event "+event)
+}
+
+func isHelmorHookCommand(command string) bool {
+	before, _, ok := strings.Cut(strings.TrimSpace(command), " hook --event ")
+	if !ok {
+		return false
+	}
+	return executableBase(strings.Trim(before, `'"`)) == "helmor" ||
+		executableBase(strings.Trim(before, `'"`)) == "helmor.exe"
+}
+
+func executableBase(exe string) string {
+	return path.Base(strings.ReplaceAll(exe, `\`, `/`))
 }
 
 func entryHasCommandContaining(entry any, needle string) bool {
