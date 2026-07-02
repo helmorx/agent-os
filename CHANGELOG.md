@@ -2,6 +2,10 @@
 
 All notable changes to HELMOR Agent are documented here.
 
+## 0.1.5 - 2026-07-02
+
+- Re-release of 0.1.4: no functional changes. The 0.1.4 tag was moved to amend commit message metadata after the version had already published, which correctly blocked a same-version republish on npm. 0.1.5 ships that identical content cleanly.
+
 ## 0.1.4 - 2026-07-02
 
 - Renamed public product branding to HELMOR Agent.

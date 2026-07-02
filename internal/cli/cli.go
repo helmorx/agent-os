@@ -19,7 +19,7 @@ import (
 	"github.com/helmorx/agent-os/internal/ui"
 )
 
-const version = "0.1.4"
+const version = "0.1.5"
 
 func Run(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
