@@ -2,10 +2,14 @@
 
 All notable changes to HELMOR Agent are documented here.
 
-## Unreleased
+## 0.1.4 - 2026-07-02
 
 - Renamed public product branding to HELMOR Agent.
 - Renamed the scoped npm alias package metadata to `@helmoragent/agent`.
+- Fixed PreToolUse/PostToolUse/Stop hook output shapes that Codex's stricter hook schema was rejecting (missing `hookEventName` tag, unsupported `suppressOutput` on those two events, unsupported `permissionDecision:allow` and `decision:approve` values) — every allowed tool call and clean session close was failing under Codex.
+- Fixed `helmor install`/`helmor doctor` merging and checking Claude Code's global hooks at `~/.claude/settings.local.json`, a path Claude Code never reads at the user level; the correct target is `~/.claude/settings.json`. The global hook merge was silently a no-op for every Claude Code user until now.
+- Fixed legacy-hook migration detection using a hardcoded machine-specific path instead of a home-relative one.
+- Reduced false-positive secret-path detector findings: stricter word-boundary matching, `.gitignore`-aware file scanning, and no more flagging scripts/tests that merely mention secret-related terms in their names.
 
 ## 0.1.3 - 2026-06-30
 
