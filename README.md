@@ -10,11 +10,11 @@
 
 <p>HELMOR gives Codex, Claude Code, Cursor, Windsurf, and other AI coding agents a project-aware control layer for context, 140+ skill routing, detector checks, and release discipline.</p>
 
-<a href="https://github.com/helmorx/agent-os/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/agent-os/ci.yml?branch=main&label=ci&style=for-the-badge&labelColor=0B111B" alt="CI"></a>
+<a href="https://github.com/helmorx/helmoragent/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/helmorx/helmoragent/ci.yml?branch=main&label=ci&style=for-the-badge&labelColor=0B111B" alt="CI"></a>
 <a href="https://www.npmjs.com/package/@helmoragent/helmor"><img src="https://img.shields.io/npm/v/@helmoragent/helmor?label=npm&style=for-the-badge&labelColor=0B111B" alt="npm version"></a>
 <a href="https://www.npmjs.com/package/@helmoragent/helmor"><img src="https://img.shields.io/npm/dm/@helmoragent/helmor?label=downloads&style=for-the-badge&labelColor=0B111B" alt="npm downloads"></a>
-<a href="https://github.com/helmorx/agent-os/releases"><img src="https://img.shields.io/github/v/release/helmorx/agent-os?include_prereleases&label=release&style=for-the-badge&labelColor=0B111B" alt="latest release"></a>
-<a href="https://github.com/helmorx/agent-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-19C37D?style=for-the-badge&labelColor=0B111B" alt="Apache-2.0 license"></a>
+<a href="https://github.com/helmorx/helmoragent/releases"><img src="https://img.shields.io/github/v/release/helmorx/helmoragent?include_prereleases&label=release&style=for-the-badge&labelColor=0B111B" alt="latest release"></a>
+<a href="https://github.com/helmorx/helmoragent/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-19C37D?style=for-the-badge&labelColor=0B111B" alt="Apache-2.0 license"></a>
 
 <br>
 
@@ -50,8 +50,8 @@
 | yarn | `yarn dlx @helmoragent/helmor install` |
 | bun | `bunx @helmoragent/helmor install` |
 | macOS Homebrew | `brew install helmorx/tap/helmoragent` |
-| Windows PowerShell | <code>irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 &#124; iex</code> |
-| Linux shell | <code>curl -fsSL https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.sh &#124; sh</code> |
+| Windows PowerShell | <code>irm https://raw.githubusercontent.com/helmorx/helmoragent/main/install/install.ps1 &#124; iex</code> |
+| Linux shell | <code>curl -fsSL https://raw.githubusercontent.com/helmorx/helmoragent/main/install/install.sh &#124; sh</code> |
 
 ## Quickstart
 

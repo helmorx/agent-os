@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-REPO="${HELMOR_REPO:-helmorx/agent-os}"
+REPO="${HELMOR_REPO:-helmorx/helmoragent}"
 VERSION="${HELMOR_VERSION:-latest}"
 INSTALL_DIR="${HELMOR_INSTALL_DIR:-$HOME/.local/bin}"
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"

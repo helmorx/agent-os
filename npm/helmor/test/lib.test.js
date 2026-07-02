@@ -43,12 +43,12 @@ test('tagFromVersion normalizes npm versions to git tags', () => {
 
 test('releaseBaseUrl builds GitHub release download URLs', () => {
   assert.equal(
-    releaseBaseUrl('helmorx/agent-os', 'latest'),
-    'https://github.com/helmorx/agent-os/releases/latest/download'
+    releaseBaseUrl('helmorx/helmoragent', 'latest'),
+    'https://github.com/helmorx/helmoragent/releases/latest/download'
   );
   assert.equal(
-    releaseBaseUrl('helmorx/agent-os', 'v0.1.2'),
-    'https://github.com/helmorx/agent-os/releases/download/v0.1.2'
+    releaseBaseUrl('helmorx/helmoragent', 'v0.1.2'),
+    'https://github.com/helmorx/helmoragent/releases/download/v0.1.2'
   );
 });
 

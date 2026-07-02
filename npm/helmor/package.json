@@ -1,16 +1,16 @@
 {
   "name": "@helmoragent/helmor",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Agent watcher for AI-assisted product development",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/helmorx/agent-os",
+  "homepage": "https://github.com/helmorx/helmoragent",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helmorx/agent-os.git",
+    "url": "git+https://github.com/helmorx/helmoragent.git",
     "directory": "npm/helmor"
   },
   "bugs": {
-    "url": "https://github.com/helmorx/agent-os/issues"
+    "url": "https://github.com/helmorx/helmoragent/issues"
   },
   "keywords": [
     "ai",

@@ -1,7 +1,7 @@
 class Helmoragent < Formula
   desc "Agent watcher for AI-assisted product development"
-  homepage "https://github.com/helmorx/agent-os"
-  url "https://github.com/helmorx/agent-os/archive/refs/tags/v0.1.1.tar.gz"
+  homepage "https://github.com/helmorx/helmoragent"
+  url "https://github.com/helmorx/helmoragent/archive/refs/tags/v0.1.1.tar.gz"
   sha256 "7df75614949a7246e610ba089845737a8c100bd120fe57ef1fe922a5406fa4de"
   license "Apache-2.0"
 

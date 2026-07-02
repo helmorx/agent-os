@@ -1,16 +1,16 @@
 {
   "name": "@helmoragent/agent",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Scoped npm alias for the HELMOR Agent CLI",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/helmorx/agent-os",
+  "homepage": "https://github.com/helmorx/helmoragent",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helmorx/agent-os.git",
+    "url": "git+https://github.com/helmorx/helmoragent.git",
     "directory": "npm/agent"
   },
   "bugs": {
-    "url": "https://github.com/helmorx/agent-os/issues"
+    "url": "https://github.com/helmorx/helmoragent/issues"
   },
   "keywords": [
     "ai",
@@ -29,7 +29,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@helmoragent/helmor": "0.1.5"
+    "@helmoragent/helmor": "0.1.6"
   },
   "scripts": {
     "test": "node -c bin/helmor.js",

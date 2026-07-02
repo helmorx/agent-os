@@ -28,13 +28,13 @@ brew install helmorx/tap/helmoragent
 Windows:
 
 ```powershell
-irm https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.ps1 | iex
+irm https://raw.githubusercontent.com/helmorx/helmoragent/main/install/install.ps1 | iex
 ```
 
 Linux:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/helmorx/agent-os/main/install/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/helmorx/helmoragent/main/install/install.sh | sh
 ```
 
 ## 2. Enable A Project

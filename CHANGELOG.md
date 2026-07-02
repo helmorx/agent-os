@@ -2,6 +2,10 @@
 
 All notable changes to HELMOR Agent are documented here.
 
+## 0.1.6 - 2026-07-02
+
+- Updated all repository URL references from `helmorx/agent-os` to `helmorx/helmoragent` (badges, install scripts, Homebrew formula, npm package metadata, docs) to match the renamed GitHub repository. No logic or functionality changed. The Go module path is intentionally left as `github.com/helmorx/agent-os`, which continues to resolve via GitHub's automatic redirect.
+
 ## 0.1.5 - 2026-07-02
 
 - Re-release of 0.1.4: no functional changes. The 0.1.4 tag was moved to amend commit message metadata after the version had already published, which correctly blocked a same-version republish on npm. 0.1.5 ships that identical content cleanly.

@@ -119,7 +119,7 @@ function verifyInstalledVersion(binaryPath, expectedVersion) {
 }
 
 async function main() {
-  const repo = process.env.HELMOR_REPO || 'helmorx/agent-os';
+  const repo = process.env.HELMOR_REPO || 'helmorx/helmoragent';
   const tag = tagFromVersion(process.env.HELMOR_VERSION || pkg.version);
   const target = platformTarget();
   const baseUrl = releaseBaseUrl(repo, tag);
